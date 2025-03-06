@@ -1,0 +1,44 @@
+class Solution
+ {
+    public int[][] mergeArrays(int[][] nums1, int[][] nums2) 
+    {
+        Arrays.sort(nums1,(a,b)->Integer.compare(a[0],b[0]));
+        Arrays.sort(nums2,(a,b)->Integer.compare(a[0],b[0]));
+        List<int[]>result=new ArrayList<>();
+        int i=0,j=0;
+        while(i<nums1.length && j<nums2.length)
+        {
+            if(nums1[i][0]==nums2[j][0])
+            {
+                int one=nums1[i][0];
+                int twosum=nums1[i][1]+nums2[j][1];
+                result.add(new int[]{one,twosum});
+                i++;
+                j++;
+            }
+            else if (nums1[i][0] < nums2[j][0]) 
+            {
+                result.add(nums1[i]);
+                i++;
+            } 
+            else 
+            {
+            result.add(nums2[j]);
+            j++;
+            }
+           
+    }
+     while (i < nums1.length) 
+            {
+            result.add(nums1[i]);
+            i++;
+            }
+        while (j < nums2.length) 
+        {
+            result.add(nums2[j]);
+            j++;
+        }
+    return result.toArray(new int[result.size()][]);
+
+    }
+}
