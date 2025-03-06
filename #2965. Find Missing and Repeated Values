@@ -1,0 +1,24 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        ArrayList<Integer> list = new ArrayList<>();
+        int arr[] = new int[2];
+        int actual = 0;
+        int row = grid.length;
+        int col = grid[0].length;
+        int n = row * col;
+        int expected = n * (n + 1) / 2;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int num = grid[i][j];
+                if (list.contains(num)) {
+                    arr[0] = num;
+                } else {
+                    actual += num;
+                    list.add(num);
+                }
+            }
+        }
+        arr[1] = expected-actual;
+        return arr;
+    }
+}
