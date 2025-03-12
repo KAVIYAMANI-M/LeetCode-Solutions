@@ -1,0 +1,23 @@
+class Solution {
+    public int maximumCount(int[] nums) {
+        int len=nums.length;
+        int pcount=0;
+        int ncount=0;
+        for(int i=0;i<len;i++)
+        {
+            if(nums[i]>0)
+            {
+                pcount++;
+            }
+            if(nums[i]<0)
+            {
+                ncount++;
+            }
+        }
+        if(pcount>ncount)
+        {
+            return pcount;
+        }
+     return ncount;   
+    }
+}
