@@ -1,0 +1,38 @@
+class Solution {
+    private boolean checkcap(int[] nums, int k,int max)
+    {
+        int count=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(nums[i]<=max)
+            {
+                count++;
+                i++;
+            }
+        }
+        if(count>=k)
+        {
+            return true;
+        }
+        return false;
+    }
+    public int minCapability(int[] nums, int k) {
+        int low = Arrays.stream(nums).min().orElseThrow();
+        int high = Arrays.stream(nums).max().orElseThrow();
+        int ans=0;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+            if(checkcap(nums,k,mid))
+            {
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            {
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+}
