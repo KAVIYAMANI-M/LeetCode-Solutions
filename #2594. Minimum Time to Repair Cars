@@ -1,0 +1,36 @@
+class Solution {
+    public static boolean checking(int[] ranks,long mid,int cars)
+    {
+        long sum=0;
+        for(int rank:ranks)
+        {
+            sum+=(long) Math.sqrt(mid/(double) rank);
+        }
+        if(sum>=cars)
+        {
+            return true;
+        }
+        return false;
+
+    }
+    public long repairCars(int[] ranks, int cars) {
+        long left=0;
+        long maxRank = Arrays.stream(ranks).max().getAsInt();
+        long right=maxRank*cars*cars;
+        long ans=right;
+        while(left<=right)
+        {
+            long mid=left+(right-left)/2;
+            if(checking(ranks,mid,cars))
+            {
+                ans=mid;
+                right=mid-1;
+            }
+            else
+            {
+                left=mid+1;
+            }
+        }
+        return ans;
+    }
+}
