@@ -1,0 +1,29 @@
+class Solution {
+    public boolean divideArray(int[] nums) {
+        Arrays.sort(nums);
+        int pair=nums.length/2;
+        int count=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            for(int j=i+1;j<nums.length;j++)
+            {
+                if(nums[i]==nums[j])
+                {
+                    count++;
+                    i++;
+                    break;
+                }
+                else
+                {
+                    i++;
+                    break;
+                }
+            }
+        }
+        if(pair==count)
+        {
+            return true;
+        }
+        return false;
+    }
+}
