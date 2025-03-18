@@ -1,0 +1,23 @@
+class Solution {
+    public int longestNiceSubarray(int[] nums) {
+       int left=0;
+       int right=0;
+       int maxsub=0;
+       int currentsum=nums[left]^nums[left];
+       int xorsum=nums[left]^nums[left];
+       while(right<nums.length)
+       {
+        currentsum=currentsum+nums[right];
+        xorsum=xorsum^nums[right];
+          if(currentsum!=xorsum)
+          {
+            currentsum=currentsum-nums[left];
+            xorsum=xorsum^nums[left];
+            left++;
+          }
+        maxsub=Math.max(maxsub,right-left+1);
+        right++;
+       }
+       return maxsub;
+    }
+}
