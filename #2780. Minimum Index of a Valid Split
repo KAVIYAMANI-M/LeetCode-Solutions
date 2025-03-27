@@ -1,0 +1,48 @@
+class Solution {
+    private static int maxfrq(List<Integer> nums)
+    {
+         HashMap<Integer,Integer> map=new HashMap<>();
+        int maxfreqelement=-1;
+        int maxfreq=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            map.put(nums.get(i),map.getOrDefault(nums.get(i),0)+1);
+        }
+        for(Map.Entry<Integer,Integer>entry:map.entrySet())
+        {
+            if(entry.getValue()>maxfreq)
+            {
+                maxfreqelement=entry.getKey();
+                maxfreq=entry.getValue();
+            }
+        }
+        return maxfreqelement;
+    }
+    public int minimumIndex(List<Integer> nums) {
+        int n=nums.size();
+        int freqElement=maxfrq(nums);
+        int ElementCount=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums.get(i)==freqElement)
+            {
+                ElementCount++;
+            }
+        }
+        int leftCount = 0;
+        int rightCount = ElementCount;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums.get(i)==freqElement)
+            {
+                leftCount++;
+                rightCount--;
+            }
+            if(leftCount>(i+1)/2 && rightCount > (n-1-i)/2)
+            {
+                return i;
+            }
+        }
+       return -1;
+    }
+}
