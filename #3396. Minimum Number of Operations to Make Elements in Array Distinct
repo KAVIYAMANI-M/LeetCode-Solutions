@@ -1,0 +1,44 @@
+class Solution {
+    public int minimumOperations(int[] nums) {
+        int operation=0;
+        int index=0;
+         HashSet<Integer>set1=new HashSet<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            set1.add(nums[i]);
+            if(nums.length==set1.size())
+            {
+                return 0;
+            }
+        }
+        while(index<nums.length)
+        {
+        HashSet<Integer>set=new HashSet<>();
+        boolean dist=false;
+        for(int i=index;i<nums.length;i++)
+        {
+         
+            if (set.contains(nums[i]))
+            {
+                 dist = true;
+                 break;
+                 }
+             else {
+                set.add(nums[i]);
+                }
+
+        }
+        if(dist==false)
+        {
+            return operation;
+        }
+        if(dist==true)
+        {
+            operation++;
+        }
+        index=index+3;
+        }
+        return operation;
+    }
+
+}
