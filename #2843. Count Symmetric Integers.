@@ -1,0 +1,45 @@
+class Solution {
+    public static int count(int n)
+    {
+           int digitcount=0;
+            while(n!=0)
+            {
+                n=n/10;
+                digitcount++;
+            }
+            return digitcount;
+    }
+    public int countSymmetricIntegers(int low, int high) {
+         int Symnum=0;
+        for(int number=low;number<=high;number++)
+        {
+           
+            int n=count(number);
+            int sum=0;
+            int last=0;
+            if(n%2==0)
+            {
+               String str=Integer.toString(number);
+               int arr[]=new int[str.length()];
+               for(int i=0;i<str.length();i++)
+               {
+                arr[i]=str.charAt(i)-'0';
+               }
+               for(int i=0;i<str.length()/2;i++)
+               {
+                sum=sum+arr[i];
+               }
+               for(int i=str.length()/2;i<str.length();i++)
+               {
+                last=last+arr[i];
+               }
+               if(sum==last)
+               {
+                Symnum++;}
+
+            }
+            
+        }
+        return Symnum;
+    }
+}
