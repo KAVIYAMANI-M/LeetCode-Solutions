@@ -1,0 +1,54 @@
+class Solution {
+    static class Pair {
+        int first;
+        int second;
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+
+    private int getFreeTimeByRescheduling(int i, List<Pair> top3, List<Integer> startTime, List<Integer> endTime) {
+        int lastEnd = (i == 0) ? 0 : endTime.get(i - 1);
+        int meetingDuration = endTime.get(i) - startTime.get(i);
+        int nextStart = startTime.get(i + 1);
+        int originalGap = nextStart - lastEnd;
+
+        for (Pair gap : top3) {
+            if (gap.first >= meetingDuration && gap.second != i && gap.second != i + 1) {
+                return originalGap;
+            }
+        }
+
+        return originalGap - meetingDuration;
+    }
+
+    public int maxFreeTime(int eventTime, List<Integer> startTime, List<Integer> endTime) {
+        startTime.add(eventTime);
+        endTime.add(eventTime);
+        int n = startTime.size();
+
+        // Precompute top 3 gaps
+        List<Pair> top3 = new ArrayList<>();
+        top3.add(new Pair(startTime.get(0) - 0, 0));
+        top3.add(new Pair(-1, -1));
+        top3.add(new Pair(-1, -1));
+
+        for (int i = 1; i < n; i++) {
+            Pair gap = new Pair(startTime.get(i) - endTime.get(i - 1), i);
+            if (gap.first > top3.get(2).first) {
+                top3.set(2, gap);
+                Collections.sort(top3, (a, b) -> b.first - a.first);
+            }
+        }
+
+        // Calculate maximum free time
+        int maxFreeTime = 0;
+        for (int i = 0; i < n - 1; i++) {
+            int freeTime = getFreeTimeByRescheduling(i, top3, startTime, endTime);
+            maxFreeTime = Math.max(maxFreeTime, freeTime);
+        }
+
+        return maxFreeTime;
+    }
+}
