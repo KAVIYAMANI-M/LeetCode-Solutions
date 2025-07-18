@@ -1,0 +1,40 @@
+class Solution {
+    public long minimumDifference(int[] nums) {
+       long len=nums.length/3;
+       long N=len;
+       long[] right=new long[nums.length];
+       long rightsum=0;
+       PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+       for(int i=nums.length-1;i>=N;i--)
+       {
+        minHeap.add(nums[i]);
+        rightsum=rightsum+nums[i];
+        if(minHeap.size()>N)
+        {
+            rightsum=rightsum-minHeap.poll();
+        }
+        if(minHeap.size()==N)
+        {
+            right[i]=rightsum;
+        }
+       }
+       long[] left=new long[nums.length];
+       long leftsum=0;
+       PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+       long min=Long.MAX_VALUE;
+       for(int i=0;i<2*N;i++)
+       {
+        maxHeap.add(nums[i]);
+        leftsum=leftsum+nums[i];
+        if(maxHeap.size()>N)
+        {
+            leftsum=leftsum-maxHeap.poll();
+        }
+        if(maxHeap.size()==N)
+        {
+            min=Math.min(min,leftsum-right[i+1]);
+        }
+       }
+       return min;
+    }
+}
