@@ -1,0 +1,57 @@
+class Solution {
+    private int maxi(ArrayList<Character> temp, int x, int y) {
+        int max = 0;
+        if (x > y) {
+            for (int i = 0; i < temp.size() - 1;) {
+                if (temp.get(i) == 'a' && temp.get(i + 1) == 'b') {
+                    max += x;
+                    temp.remove(i);
+                    temp.remove(i);
+                    if (i > 0) i--;
+                } else {
+                    i++;
+                }
+            }
+            for (int i = 0; i < temp.size() - 1;) {
+                if (temp.get(i) == 'b' && temp.get(i + 1) == 'a') {
+                    max += y;
+                    temp.remove(i);
+                    temp.remove(i);
+                    if (i > 0) i--;
+                } else {
+                    i++;
+                }
+            }
+        } else {
+            for (int i = 0; i < temp.size() - 1;) {
+                if (temp.get(i) == 'b' && temp.get(i + 1) == 'a') {
+                    max += y;
+                    temp.remove(i);
+                    temp.remove(i);
+                    if (i > 0) i--;
+                } else {
+                    i++;
+                }
+            }
+            for (int i = 0; i < temp.size() - 1;) {
+                if (temp.get(i) == 'a' && temp.get(i + 1) == 'b') {
+                    max += x;
+                    temp.remove(i);
+                    temp.remove(i);
+                    if (i > 0) i--;
+                } else {
+                    i++;
+                }
+            }
+        }
+        return max;
+    }
+
+    public int maximumGain(String s, int x, int y) {
+        ArrayList<Character> temp = new ArrayList<>();
+        for (char c : s.toCharArray()) {
+            temp.add(c);
+        }
+        return maxi(temp, x, y);
+    }
+}
