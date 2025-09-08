@@ -1,0 +1,35 @@
+class Solution {
+    public static boolean checkNum(int num)
+    {
+        int temp=num;
+        while(temp>0)
+        {
+            int rem=temp%10;
+            if(rem==0)
+            {
+                return false;
+            }
+            temp=temp/10;
+        }
+        return true;
+    }
+    public int[] getNoZeroIntegers(int n) {
+        int[] arr=new int[2];
+        int left=1;
+        int right=n-1;
+        while(left<n && right>0)
+        {
+            boolean found1=checkNum(left);
+            boolean found2=checkNum(right);
+            if(found1==true && found2==true)
+            {
+                arr[0]=left;
+                arr[1]=right;
+                break;
+            }
+            left++;
+            right--;
+        }
+        return arr;
+    }
+}
