@@ -1,0 +1,13 @@
+class Solution {
+    public static void reverse(char[] old, int start, int end) {
+    if (start >= end) return;
+    old[start] ^= old[end];
+    old[end] ^= old[start];
+    old[start] ^= old[end];
+
+    reverse(old, start + 1, end - 1);
+}
+public void reverseString(char[] s) {
+    reverse(s, 0, s.length - 1);
+}
+}
